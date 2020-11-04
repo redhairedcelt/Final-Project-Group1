@@ -88,8 +88,10 @@ cores = os.cpu_count()
 workers = cores - 1
 print(f'This machine has {cores} cores.  Will use {workers} for multiprocessing.')
 
-with Pool(workers) as p:
-    history_pieces = p.map(build_history, list_df)
+if __name__ == "__main__":
+    set_start_method('fork')
+    with Pool(workers) as p:
+        history_pieces = p.map(build_history, list_df)
 
 last_tock = datetime.datetime.now()
 lapse = last_tock - first_tick
