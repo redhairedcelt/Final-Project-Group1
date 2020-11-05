@@ -106,6 +106,8 @@ ENV/
 env.bak/
 venv.bak/
 
+.idea/
+
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -123,3 +125,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+Code/flight_number_sequence_hist.csv
+Data/.DS_Store
+Final-Group-Presentation/
+Final-Group-Project-Report/
+Group-Proposal/
