@@ -148,7 +148,7 @@ feb = pd.read_csv('./air_data/feb_2020.csv')
 
 # put together the month pieces
 df_flights = pd.concat([sep, oct, nov, dec, jan, feb])
-del (sep, oct, nov, dec, jan, feb)
+#del (sep, oct, nov, dec, jan, feb)
 # %%
 df_flights['tail_flight_combo'] = df_flights['TAIL_NUM'] + '_' + df_flights['OP_CARRIER_FL_NUM'].astype('str')
 df_flights['carrier_flight_combo'] = df_flights['OP_UNIQUE_CARRIER'] + '_' + df_flights['OP_CARRIER_FL_NUM'].astype('str')
@@ -252,7 +252,7 @@ for N in range(2,15):
     model = build_ngram_model(history_train, N)
 
     # iterate through uids from history_test and make a prediction for last port for each uid
-    history_test_uids = list(history_train.keys())
+    history_test_uids = list(history_test.keys())
 
     accuracy_dict = dict()
     for uid in history_test_uids:

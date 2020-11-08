@@ -7,12 +7,12 @@ import numpy as np
 from multiprocessing import Pool, set_start_method
 
 #%% read in each csv file as a separate df
-sep = pd.read_csv('../Data/air_data/sep_2019.csv')
-oct = pd.read_csv('../Data/air_data/oct_2019.csv')
-nov = pd.read_csv('../Data/air_data/nov_2019.csv')
-dec = pd.read_csv('../Data/air_data/dec_2019.csv')
-jan = pd.read_csv('../Data/air_data/jan_2020.csv')
-feb = pd.read_csv('../Data/air_data/feb_2020.csv')
+sep = pd.read_csv('~/Final-Project-Group1/Data/air_data/sep_2019.csv')
+oct = pd.read_csv('~/Final-Project-Group1/Data/air_data/oct_2019.csv')
+nov = pd.read_csv('~/Final-Project-Group1/Data/air_data/nov_2019.csv')
+dec = pd.read_csv('~/Final-Project-Group1/Data/air_data/dec_2019.csv')
+jan = pd.read_csv('~/Final-Project-Group1/Data/air_data/jan_2020.csv')
+feb = pd.read_csv('~/Final-Project-Group1/Data/air_data/feb_2020.csv')
 
 # put together the month pieces
 df_flights = pd.concat([sep, oct, nov, dec, jan, feb])
@@ -29,7 +29,16 @@ print(f'Total unique flight_num rows: {len(df_flights.OP_CARRIER_FL_NUM.unique()
 print(f'Total unique carrier ID rows: {len(df_flights.OP_UNIQUE_CARRIER.unique())}')
 print(f'Total unique combined carrier ID and flight number rows: {len(df_flights.carrier_flight_combo.unique())}')
 print(f'Total unique combined tail number and flight number rows: {len(df_flights.tail_flight_combo.unique())}')
-# %% Clean and sort df_flights into an edgelist that defines all the different sites visited
+
+print(df_flights.groupby('OP_UNIQUE_CARRIER').agg('count'))
+
+# %%
+
+airline = 'DL'
+#subset to just american airlines
+df_flights = df_flights[df_flights['OP_UNIQUE_CARRIER'] == airline]
+
+# Clean and sort df_flights into an edgelist that defines all the different sites visited
 # by each uid.  These must be sorted in time order!!
 target = 'TAIL_NUM'
 # need to sort so rows are sequential
@@ -109,7 +118,7 @@ for piece in history_pieces:
 df_history = pd.DataFrame([history.keys(), history.values()]).T
 df_history.columns = ['flight_numb', 'seq']
 df_history['numb_in_seq'] = df_history['seq'].str.split().map(len)
-df_history.to_csv('flight_number_sequence_hist.csv', index=False)
+df_history.to_csv(f'~/Final-Project-Group1/Data/flight_number_{airline}_sequence_hist.csv', index=False)
 #%%
 df_history['numb_in_seq'].hist()
 plt.title('Histogram of Flight Numbers and Numbers of Stops in Each Sequence')
