@@ -1,36 +1,28 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
 from pickle import load
-import datetime
-import os
 
-from sklearn.model_selection import train_test_split
-
-from keras_preprocessing.text import Tokenizer
-from keras.utils import to_categorical
 from keras.models import Sequential
-from keras.layers import Dense, Dropout, TimeDistributed, Activation
+from keras.layers import Dense, Dropout
 from keras.layers import LSTM
 from keras.layers import Embedding
 
 # %%
-
-run_name = 'DL_25'
-print(f'Run name is {run_name}.')
-first_tick = datetime.datetime.now()
-print('Starting Processing at: ', first_tick.time())
-
+# set run name
+run_name = 'UA_50'
+# set model name
+model_name = 'baseline'
+print(f'Run name is {run_name} and model name is {model_name}.')
 
 # load tokenizer, get vocab_size, and load x, y
 tokenizer = load(open(f'/home/ubuntu/Final-Project-Group1/Models/{run_name}_tokenizer.pkl', 'rb'))
 vocab_size = len(tokenizer.word_index) + 1
-x = np.load(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_x.npy')
-y = np.load(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_y.npy')
+x_train = np.load(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_x_train.npy')
+y_train = np.load(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_y_train.npy')
+x_test = np.load(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_x_test.npy')
+y_test = np.load(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_y_test.npy')
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=42, test_size=0.2)
-y_train, y_test = to_categorical(y_train, num_classes=vocab_size), to_categorical(y_test, num_classes=vocab_size)
-X_seq_length = x.shape[1]
+X_seq_length = x_train.shape[0]
 
 # hyperparameters
 N_NEURONS = 100
@@ -59,18 +51,8 @@ accuracy = round((100 * model.evaluate(x_test, y_test)[1]), 3)
 print(f"Final accuracy on validations set: {accuracy}")
 
 # %%
-# Visualize training process
-plt.plot(history.history['loss'], label='Categorical crossentropy loss (training data)')
-plt.plot(history.history['val_loss'], label='Categorical crossentropy loss (validation data)')
-plt.title(f'Categorical crossentropy loss for {run_name}, overall accuracy: {accuracy}')
-plt.ylabel('Categorical crossentropy loss value')
-plt.yscale('log')
-plt.xlabel('No. epoch')
-plt.legend(loc="upper left")
-plt.show()
-# %%
 # save the model to file
-model.save(f'/home/ubuntu/Final-Project-Group1/Models/{run_name}_model.h5')
+model.save(f'/home/ubuntu/Final-Project-Group1/Models/{run_name}_{model_name}_model.h5')
 # save history
-df_history = (pd.DataFrame.from_dict(history.history)
-              .to_csv(f'/home/ubuntu/Final-Project-Group1/Models/{run_name}_history.csv'))
+df_history = pd.DataFrame.from_dict(history.history)
+df_history.to_csv(f'/home/ubuntu/Final-Project-Group1/Models/{run_name}_{model_name}_history.csv')
