@@ -44,6 +44,11 @@ plt.show()
 #%% predict the models output based on x test and generate confusion matrix
 prediction = model.predict(x_test)
 
+#%%
+from sklearn.metrics import cohen_kappa_score
+ck_score = cohen_kappa_score(y_test.argmax(axis=1), prediction.argmax(axis=1))
+
+#%%
 # print confusion matrix
 from sklearn.metrics import confusion_matrix, classification_report, plot_confusion_matrix
 conf_mat = confusion_matrix(y_true=tokenizer.sequences_to_texts([y_test.argmax(axis=1)])[0].split(' '),
@@ -75,7 +80,7 @@ import seaborn as sns
 g = sns.scatterplot(x='precision', y='recall', size='support',
                     hue='f1-score', data=df_class_report)
 plt.title("Scatterplot of Model's Precision and Recall, \nColored by F1 Score, Sized by Number of Flights")
-plt.legend(bbox_to_anchor=(1.05, 1))
+#plt.legend(bbox_to_anchor=(1.05, 1))
 plt.show()
 
 # plot using matplotlib
@@ -88,5 +93,5 @@ plt.show()
 # proc log
 log_name = f'/home/ubuntu/Final-Project-Group1/Logs/{model_name}'
 log = open(log_name, 'a+')
-log.write(f'{model_name} for {run_name} scored {accuracy} accuracy. \n')
+log.write(f'{model_name} for {run_name} scored {accuracy} accuracy and {ck_score} cohen_kappa score. \n')
 log.close()
