@@ -45,6 +45,9 @@ To manage the different types of models and versions of our data, which can be s
 - Build, compile, and fit model.
 - Save off final model for later evaluation.
 
+### modeling_seq2seq.py
+- Same function as modeling.py, but tailored for unique architecture of seq2seq models.
+
 ### model_evaluate.py:
 - Required x and y data, models, corresponding history files and tokenziers are loaded from disk. 
 - Plot each model’s training history to compare the training and validation loss to ascertain if the model overfit or underfit.  
