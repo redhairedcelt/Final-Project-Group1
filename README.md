@@ -12,7 +12,7 @@ To facilitate efficient model development, training, and evaluation in an enviro
 To manage the different types of models and versions of our data, which can be segmented by airline and divided into different length sequences in the model pipeline, we used different “model_name” and “run_name” variables to track activity across different RNN models (LSTM, GRU, seq2seq, etc) and airline/sequence length “runs” respectively.  These variables for saving and loading data and models are found at the beginning of each script.
 
 
-###EDA_and_cleaning.py:
+### EDA_and_cleaning.py:
 - Read in csv data files that were downloaded from our source site as pandas dataframes.
 - Concat all pandas dataframes into one df and sort by the unique id, date, and time to ensure temporal order
 - Explore summary of feature counts and provide option to subset to a specific airline.
@@ -27,8 +27,8 @@ To manage the different types of models and versions of our data, which can be s
 - Compare results to those of random sequences.
 
 ### preprocessing.py:
-- We read in the DataFrame from the previous script, where each row includes the string of all airports visited by each aircraft.  
-- This str is split into a numpy array, and then we apply a broadcast function that takes the numpy array, a window length, and a stride to generate an array of arrays each the length of the window.  So if there were originally 7 elements [0,1,2,3,4,5,6] and the window is 3 and stride is 1, we would get
+- Read in the DataFrame from the previous script. 
+- This str is split into a numpy array, and then a broadcast function is applied that takes the numpy array, a window length, and a stride to generate an array of arrays each the length of the window.  So if there were originally 7 elements [0,1,2,3,4,5,6] and the window is 3 and stride is 1, we would get
 [[0,1,2],
 [1,2,3],
 [2,3,4],
