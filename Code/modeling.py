@@ -9,7 +9,7 @@ from keras.layers import Embedding
 
 # %%
 # set run name
-run_name = 'UA_50'
+run_name = 'DL_25'
 # set model name
 model_name = 'baseline'
 print(f'Run name is {run_name} and model name is {model_name}.')
@@ -22,7 +22,7 @@ y_train = np.load(f'~/Final-Project-Group1/Data/{run_name}_y_train.npy')
 x_test = np.load(f'~/Final-Project-Group1/Data/{run_name}_x_test.npy')
 y_test = np.load(f'~/Final-Project-Group1/Data/{run_name}_y_test.npy')
 
-X_seq_length = x_train.shape[0]
+X_seq_length = x_train.shape[1]
 
 # hyperparameters
 N_NEURONS = 100
