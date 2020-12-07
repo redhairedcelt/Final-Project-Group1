@@ -10,6 +10,10 @@ We believe this approach is applicable to numerous different problems beyond pre
 To facilitate efficient model development, training, and evaluation in an environment with multiple different versions of input datasets, we developed a data ingest and preprocessing pipeline using a series of Python scripts, which are detailed below.  This repo is intended to be cloned to the root directory of the user, and all directory paths are hard codes to look for the repo main folder at "~/".
 
 To manage the different types of models and versions of our data, which can be segmented by airline and divided into different length sequences in the model pipeline, we used different “model_name” and “run_name” variables to track activity across different RNN models (LSTM, GRU, seq2seq, etc) and airline/sequence length “runs” respectively.  These variables for saving and loading data and models are found at the beginning of each script.
+
+The repo is configured to run a baseline model with a two-layer LSTM for Delta Airlines with a sequence length of 50.  If the repo is cloned at the root file '/home/ubuntu', a user can run any of the scripts in the '/home/ubuntu/Final-Project-Group1/Code/baseline_scripts'  in any order.  Running additional models will require generation of some of those models and required data first.  Please see flow chart below for additional details on data processing.
+
+
 ![Data Processing Overview](https://github.com/redhairedcelt/Final-Project-Group1/blob/main/data_processing.png)
 
 ### EDA_and_cleaning.py:
