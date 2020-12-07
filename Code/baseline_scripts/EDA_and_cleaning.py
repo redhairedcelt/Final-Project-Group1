@@ -22,8 +22,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-
-
+import zipfile
+try:
+    with zipfile.ZipFile('/home/ubuntu/Final-Project-Group1/Data_dir.zip', 'r') as zip_ref:
+        zip_ref.extractall('/home/ubuntu/Final-Project-Group1')
+    print('Data dir unzipped.')
+except:
+    print('Error unzipping Data dir...')
 
 # %% read in each csv file as a separate df
 sep = pd.read_csv('/home/ubuntu/Final-Project-Group1/Data/air_data/sep_2019.csv')
