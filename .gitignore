@@ -126,8 +126,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-Code/flight_number_sequence_hist.csv
 Data/.DS_Store
-Final-Group-Presentation/
-Final-Group-Project-Report/
-Group-Proposal/
+
