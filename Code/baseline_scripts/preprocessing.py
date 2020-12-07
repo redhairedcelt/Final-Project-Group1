@@ -14,7 +14,7 @@ airline = 'DL'
 # this is the size of the sliding window.
 run_name = f'{airline}_{seq_len}'
 print(f'Run name is {run_name}.')
-df_history = pd.read_csv(f'~/Final-Project-Group1/Data/flight_number_{airline}_sequence_hist.csv')
+df_history = pd.read_csv(f'/home/ubuntu/Final-Project-Group1/Data/flight_number_{airline}_sequence_hist.csv')
 
 
 def broadcasting_app(a, l, s):  # Window len = l, Stride len/stepsize = s
@@ -57,12 +57,12 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=42, test_
 y_train, y_test = to_categorical(y_train, num_classes=vocab_size), to_categorical(y_test, num_classes=vocab_size)
 
 # save off the data
-np.save(f'~/Final-Project-Group1/Data/{run_name}_x_train.npy', x_train)
-np.save(f'~/Final-Project-Group1/Data/{run_name}_y_train.npy', y_train)
-np.save(f'~/Final-Project-Group1/Data/{run_name}_x_test.npy', x_test)
-np.save(f'~/Final-Project-Group1/Data/{run_name}_y_test.npy', y_test)
+np.save(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_x_train.npy', x_train)
+np.save(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_y_train.npy', y_train)
+np.save(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_x_test.npy', x_test)
+np.save(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_y_test.npy', y_test)
 # save the tokenizer
-dump(tokenizer, open(f'~/Final-Project-Group1/Models/{run_name}_tokenizer.pkl', 'wb'))
+dump(tokenizer, open(f'/home/ubuntu/Final-Project-Group1/Models/{run_name}_tokenizer.pkl', 'wb'))
 
 last_tock = datetime.datetime.now()
 lapse = last_tock - first_tick

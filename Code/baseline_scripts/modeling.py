@@ -15,12 +15,12 @@ model_name = 'baseline'
 print(f'Run name is {run_name} and model name is {model_name}.')
 
 # load tokenizer, get vocab_size, and load x, y
-tokenizer = load(open(f'~/Final-Project-Group1/Models/{run_name}_tokenizer.pkl', 'rb'))
+tokenizer = load(open(f'/home/ubuntu/Final-Project-Group1/Models/{run_name}_tokenizer.pkl', 'rb'))
 vocab_size = len(tokenizer.word_index) + 1
-x_train = np.load(f'~/Final-Project-Group1/Data/{run_name}_x_train.npy')
-y_train = np.load(f'~/Final-Project-Group1/Data/{run_name}_y_train.npy')
-x_test = np.load(f'~/Final-Project-Group1/Data/{run_name}_x_test.npy')
-y_test = np.load(f'~/Final-Project-Group1/Data/{run_name}_y_test.npy')
+x_train = np.load(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_x_train.npy')
+y_train = np.load(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_y_train.npy')
+x_test = np.load(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_x_test.npy')
+y_test = np.load(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_y_test.npy')
 
 X_seq_length = x_train.shape[1]
 
@@ -52,7 +52,7 @@ print(f"Final accuracy on validations set: {accuracy}")
 
 # %%
 # save the model to file
-model.save(f'~/Final-Project-Group1/Models/{run_name}_{model_name}_model.h5')
+model.save(f'/home/ubuntu/Final-Project-Group1/Models/{run_name}_{model_name}_model.h5')
 # save history
 df_history = pd.DataFrame.from_dict(history.history)
-df_history.to_csv(f'~/Final-Project-Group1/Models/{run_name}_{model_name}_history.csv')
+df_history.to_csv(f'/home/ubuntu/Final-Project-Group1/Models/{run_name}_{model_name}_history.csv')

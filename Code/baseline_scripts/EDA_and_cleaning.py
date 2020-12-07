@@ -26,12 +26,12 @@ import numpy as np
 
 
 # %% read in each csv file as a separate df
-sep = pd.read_csv('~/Final-Project-Group1/Data/air_data/sep_2019.csv')
-oct = pd.read_csv('~/Final-Project-Group1/Data/air_data/oct_2019.csv')
-nov = pd.read_csv('~/Final-Project-Group1/Data/air_data/nov_2019.csv')
-dec = pd.read_csv('~/Final-Project-Group1/Data/air_data/dec_2019.csv')
-jan = pd.read_csv('~/Final-Project-Group1/Data/air_data/jan_2020.csv')
-feb = pd.read_csv('~/Final-Project-Group1/Data/air_data/feb_2020.csv')
+sep = pd.read_csv('/home/ubuntu/Final-Project-Group1/Data/air_data/sep_2019.csv')
+oct = pd.read_csv('/home/ubuntu/Final-Project-Group1/Data/air_data/oct_2019.csv')
+nov = pd.read_csv('/home/ubuntu/Final-Project-Group1/Data/air_data/nov_2019.csv')
+dec = pd.read_csv('/home/ubuntu/Final-Project-Group1/Data/air_data/dec_2019.csv')
+jan = pd.read_csv('/home/ubuntu/Final-Project-Group1/Data/air_data/jan_2020.csv')
+feb = pd.read_csv('/home/ubuntu/Final-Project-Group1/Data/air_data/feb_2020.csv')
 
 # put together the month pieces
 df_flights = pd.concat([sep, oct, nov, dec, jan, feb])
@@ -155,7 +155,7 @@ for piece in history_pieces:
 df_history = pd.DataFrame([history.keys(), history.values()]).T
 df_history.columns = ['flight_numb', 'seq']
 df_history['numb_in_seq'] = df_history['seq'].str.split().map(len)
-df_history.to_csv(f'~/Final-Project-Group1/Data/flight_number_{airline}_sequence_hist.csv', index=False)
+df_history.to_csv(f'/home/ubuntu/Final-Project-Group1/Data/flight_number_{airline}_sequence_hist.csv', index=False)
 # %%
 df_history['numb_in_seq'].hist()
 plt.title(f'Histogram of Flight Numbers and Numbers of Stops in Each Sequence for {airline}')

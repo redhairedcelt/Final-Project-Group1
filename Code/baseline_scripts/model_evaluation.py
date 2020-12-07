@@ -15,18 +15,18 @@ model_name = 'baseline'
 print(f'Run name is {run_name} and model name is {model_name}.')
 
 # load tokenizer, get vocab_size, and load x, y
-tokenizer = load(open(f'~/Final-Project-Group1/Models/{run_name}_tokenizer.pkl', 'rb'))
+tokenizer = load(open(f'/home/ubuntu/Final-Project-Group1/Models/{run_name}_tokenizer.pkl', 'rb'))
 vocab_size = len(tokenizer.word_index) + 1
-x_train = np.load(f'~/Final-Project-Group1/Data/{run_name}_x_train.npy')
-y_train = np.load(f'~/Final-Project-Group1/Data/{run_name}_y_train.npy')
-x_test = np.load(f'~/Final-Project-Group1/Data/{run_name}_x_test.npy')
-y_test = np.load(f'~/Final-Project-Group1/Data/{run_name}_y_test.npy')
+x_train = np.load(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_x_train.npy')
+y_train = np.load(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_y_train.npy')
+x_test = np.load(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_x_test.npy')
+y_test = np.load(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_y_test.npy')
 
 # load history
-history = pd.read_csv(f'~/Final-Project-Group1/Models/{run_name}_{model_name}_history.csv')
+history = pd.read_csv(f'/home/ubuntu/Final-Project-Group1/Models/{run_name}_{model_name}_history.csv')
 
 # load model
-model = load_model(f'~/Final-Project-Group1/Models/{run_name}_{model_name}_model.h5')
+model = load_model(f'/home/ubuntu/Final-Project-Group1/Models/{run_name}_{model_name}_model.h5')
 
 # %% Get Accuracy and Plot the training/validation curves
 accuracy = round((100 * model.evaluate(x_test, y_test)[1]), 3)
@@ -85,7 +85,7 @@ plt.show()
 
 #%%
 # proc log
-log_name = f'~/Final-Project-Group1/Logs/{model_name}'
+log_name = f'/home/ubuntu/Final-Project-Group1/Logs/{model_name}'
 log = open(log_name, 'a+')
 log.write(f'{model_name} for {run_name} scored {accuracy} accuracy and {ck_score} cohen_kappa score. \n')
 log.close()
