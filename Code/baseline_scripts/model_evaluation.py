@@ -83,12 +83,6 @@ plt.title("Scatterplot of Model's Precision and Recall, \nColored by F1 Score, S
 #plt.legend(bbox_to_anchor=(1.05, 1))
 plt.show()
 
-# plot using matplotlib
-#plt.scatter(df_class_report['precision'], df_class_report['recall'], s=df_class_report['support']/20,
-#            c=df_class_report['f1-score'])
-# plt.title(f"Scatterplot of {model_name}_{run_name} Precision and Recall, \nColored by F1 Score, Sized by Number of Flights")
-# plt.show()
-
 #%%
 # proc log
 log_name = f'~/Final-Project-Group1/Logs/{model_name}'

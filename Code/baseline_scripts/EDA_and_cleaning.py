@@ -1,9 +1,29 @@
 import os
+import datetime
+from multiprocessing import Pool, set_start_method
+
+# try pip installing and loading additional modules
+try:
+    os.system("pip install numpy")
+    os.system("pip install matplotlib")
+    os.system("pip install pandas")
+    os.system("pip install keras")
+    os.system("pip install scikit-learn")
+    os.system("pip install sklearn")
+    os.system("pip install tensorflow")
+    os.system("pip install seaborn")
+    os.system("pip install statsmodels")
+
+except Exception as e:
+    print('Failed to install modules.')
+    print(e)
+
 import pandas as pd
 import matplotlib.pyplot as plt
-import datetime
 import numpy as np
-from multiprocessing import Pool, set_start_method
+
+
+
 
 # %% read in each csv file as a separate df
 sep = pd.read_csv('~/Final-Project-Group1/Data/air_data/sep_2019.csv')
@@ -52,12 +72,13 @@ print(f'The total number of rows is {len(df_edgelist)}.')
 print(f"The total of unique UIDs is {len(df_edgelist['uid'].unique())}.")
 
 # %% Group by the airport to get total number of flights per airport.  sort by largest, build bar graph
-(df_edgelist.groupby('Source').agg('count')['uid'].sort_values(ascending=False).head(25).plot(kind='bar'))
-plt.title('Top 25 Airport by Number of Flights')
+top_size = 12
+(df_edgelist.groupby('Source').agg('count')['uid'].sort_values(ascending=False).head(top_size).plot(kind='bar'))
+plt.title(f'Top {top_size} Airport by Number of Flights for {airline}')
 plt.show()
 
-# %% Group by the airport, get top 25 busiest airports, sum all others, and build pie chart
-top = df_edgelist.groupby('Source').agg('count')['uid'].sort_values(ascending=False).head(25)
+# Group by the airport, get top 25 busiest airports, sum all others, and build pie chart
+top = df_edgelist.groupby('Source').agg('count')['uid'].sort_values(ascending=False).head(top_size)
 
 top_visits = top.sum()
 other_visits = len(df_edgelist) - top_visits
@@ -65,7 +86,7 @@ top_and_other = top.append(pd.Series(other_visits, index=['OTHER']))
 
 top_and_other.rename('Flights per Airport', inplace=True)
 top_and_other.plot(kind='pie')
-plt.title('Percent of Flight From Top 25 Airports')
+plt.title(f'Percent of Flight From Top {top_size} Airports for {airline}')
 plt.show()
 
 
@@ -137,5 +158,5 @@ df_history['numb_in_seq'] = df_history['seq'].str.split().map(len)
 df_history.to_csv(f'~/Final-Project-Group1/Data/flight_number_{airline}_sequence_hist.csv', index=False)
 # %%
 df_history['numb_in_seq'].hist()
-plt.title('Histogram of Flight Numbers and Numbers of Stops in Each Sequence')
+plt.title(f'Histogram of Flight Numbers and Numbers of Stops in Each Sequence for {airline}')
 plt.show()

@@ -4,6 +4,8 @@ from statsmodels.tsa.stattools import adfuller
 from keras_preprocessing.text import Tokenizer
 import pandas as pd
 
+airline = 'DL'
+
 #%%
 def cal_acf(y_array, k):
     """
@@ -83,7 +85,7 @@ def adf_test(series, name, alpha=.05, rounded_to=3):
     for k, v in adf_results[4].items():
         print(k, round(v, rounded_to))
 #%%
-df_history = pd.read_csv(f'~/Final-Project-Group1/Data/flight_number_DL_sequence_hist.csv')
+df_history = pd.read_csv(f'~/Final-Project-Group1/Data/flight_number_{airline}_sequence_hist.csv')
 
 #%% Check Autocorrelation and Stationarity for the entire dataset
 seq = df_history.seq.iloc[0]
