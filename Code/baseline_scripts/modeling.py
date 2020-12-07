@@ -9,7 +9,7 @@ from keras.layers import Embedding
 
 # %%
 # set run name
-run_name = 'DL_25'
+run_name = 'DL_50'
 # set model name
 model_name = 'baseline'
 print(f'Run name is {run_name} and model name is {model_name}.')

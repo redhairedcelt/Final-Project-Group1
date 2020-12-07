@@ -9,7 +9,7 @@ from keras_preprocessing.text import Tokenizer
 
 # %% Load required data and models
 # set run name
-run_name = 'UA_5'
+run_name = 'DL_50'
 # set model name
 model_name = 'baseline'
 print(f'Run name is {run_name} and model name is {model_name}.')
@@ -82,6 +82,8 @@ g = sns.scatterplot(x='precision', y='recall', size='support',
 plt.title("Scatterplot of Model's Precision and Recall, \nColored by F1 Score, Sized by Number of Flights")
 #plt.legend(bbox_to_anchor=(1.05, 1))
 plt.show()
+
+print(f'{model_name} for {run_name} scored {accuracy} accuracy and {ck_score} cohen_kappa score. \n')
 
 #%%
 # proc log

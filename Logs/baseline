@@ -8,3 +8,6 @@ baseline for UA_10 scored 49.918 accuracy.
 baseline for UA_15 scored 49.512 accuracy. 
 baseline for UA_25 scored 50.007 accuracy. 
 baseline for UA_50 scored 49.906 accuracy. 
+baseline for DL_25 scored 57.802 accuracy and 0.5406031171767183 cohen_kappa score. 
+baseline for DL_50 scored 57.151 accuracy and 0.5340785564956745 cohen_kappa score. 
+baseline for DL_50 scored 57.151 accuracy and 0.5340785564956745 cohen_kappa score. 

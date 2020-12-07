@@ -2,14 +2,14 @@
 import pandas as pd
 import numpy as np
 import datetime
-from pickle import dump
+import pickle
 from sklearn.model_selection import train_test_split
 from keras_preprocessing.text import Tokenizer
 from keras.utils import to_categorical
 
 # %%
 # set the length of the sequence to extract from the data.
-seq_len = 25
+seq_len = 50
 airline = 'DL'
 # this is the size of the sliding window.
 run_name = f'{airline}_{seq_len}'
@@ -62,7 +62,8 @@ np.save(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_y_train.npy', y_trai
 np.save(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_x_test.npy', x_test)
 np.save(f'/home/ubuntu/Final-Project-Group1/Data/{run_name}_y_test.npy', y_test)
 # save the tokenizer
-dump(tokenizer, open(f'/home/ubuntu/Final-Project-Group1/Models/{run_name}_tokenizer.pkl', 'wb'))
+pickle.dump(tokenizer, open(f'/home/ubuntu/Final-Project-Group1/Models/{run_name}_tokenizer.pkl', 'wb'),
+        protocol=pickle.HIGHEST_PROTOCOL)
 
 last_tock = datetime.datetime.now()
 lapse = last_tock - first_tick
