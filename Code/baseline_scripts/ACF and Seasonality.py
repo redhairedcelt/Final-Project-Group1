@@ -84,8 +84,33 @@ def adf_test(series, name, alpha=.05, rounded_to=3):
     print('The test statistic is {} and the critical values are:'.format(test_stat))
     for k, v in adf_results[4].items():
         print(k, round(v, rounded_to))
+
+def sampen(L, m):
+    """
+
+    """
+    N = len(L)
+    r = (np.std(L) * .2)
+    B = 0.0
+    A = 0.0
+
+    # Split time series and save all templates of length m
+    xmi = np.array([L[i: i + m] for i in range(N - m)])
+    xmj = np.array([L[i: i + m] for i in range(N - m + 1)])
+
+    # Save all matches minus the self-match, compute B
+    B = np.sum([np.sum(np.abs(xmii - xmj).max(axis=1) <= r) - 1 for xmii in xmi])
+
+    # Similar for computing A
+    m += 1
+    xm = np.array([L[i: i + m] for i in range(N - m + 1)])
+
+    A = np.sum([np.sum(np.abs(xmi - xm).max(axis=1) <= r) - 1 for xmi in xm])
+
+    # Return SampEn
+    return -np.log(A / B)
 #%%
-df_history = pd.read_csv(f'/home/ubuntu/Final-Project-Group1/Data/flight_number_{airline}_sequence_hist.csv')
+df_history = pd.read_csv(f'Data/flight_number_{airline}_sequence_hist.csv')
 
 #%% Check Autocorrelation and Stationarity for the entire dataset
 seq = df_history.seq.iloc[0]
@@ -107,11 +132,13 @@ sequences_from_tokenizer = np.array(tokenizer.texts_to_sequences(all_sequences))
 acf_x = cal_acf(sequences_from_tokenizer, k=100)
 plot_acf_data(acf_x, title=f'ACF for all data with length {len(all_sequences)}')
 
-adf_test(pd.Series(sequences_from_tokenizer.reshape(-1)), name=f'ADF_Full')
+# the adf test on all data is a heavy-compute process
+#adf_test(pd.Series(sequences_from_tokenizer.reshape(-1)), name=f'ADF_Full')
 
 #%% Check a random sequence for an aircraft
-#i = 4582
-i = (np.random.randint(low=0, high=len(df_history), size=1))[0]
+#i = 482
+i = 744 # good lag out to 10 or so
+#i = (np.random.randint(low=0, high=len(df_history), size=1))[0]
 seq = df_history.seq.iloc[i]
 seq_array = np.array(seq.split(' '))
 # use Keras' tokenizer to translate the str representations of airports into integers
@@ -134,3 +161,36 @@ acf_x = cal_acf(random_array, k=250)
 plot_acf_data(acf_x, title=f'Random Array')
 
 adf_test(pd.Series(random_array), name='Random Array')
+
+#%% sample entropy
+L_seq = sequences_from_tokenizer.flatten()
+unique_vals = np.unique(L_seq)
+sample_L_len = round(len(L_seq) / len(unique_vals))
+rand_L_seq = np.random.choice(np.array(unique_vals), len(L_seq))
+
+print(f'For sequence with length {len(L_seq)} with std of {np.std(L_seq)}...')
+for i in range(1,10):
+    print(f'For i = {i}:, true entropy is {round(sampen(L_seq, i),3)}')
+    print(f'For i = {i}:, random entropy is {round(sampen(rand_L_seq, i), 3)}')
+
+
+#%%
+import collections
+
+from scipy.stats import entropy
+
+
+sequence = L_seq
+bases = collections.Counter([tmp_base for tmp_base in sequence])
+# define distribution
+dist = [x / sum(bases.values()) for x in bases.values()]
+
+# use scipy to calculate entropy
+entropy_value = entropy(dist, base=2)
+print((entropy_value))
+#%% test for length 3
+unique_vals = np.unique(L_seq)
+sample_L_len = round(len(L_seq) / len(unique_vals))
+rand_L_seq = np.random.choice(np.array(unique_vals), len(L_seq))
+
+
